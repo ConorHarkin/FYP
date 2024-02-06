@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Name</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+  <div>WEBSITE NAME</div>
+  <div>
+    <a href="#home">Home</a>
+    <a href="#nutrition">Nutrition</a>
+    <a href="#workout">Workout</a>
+    <a href="#profile">Profile</a>
+  </div>
+</div>
+
+<div class="sidebar">
+  <input type="search" placeholder="Find Friends">
+  <div class="friend-list">
+    <div class="friend">Username</div>
+    <div class="friend">Username</div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="post">
+    <div class="post-header">
+      <span class="username">Username</span>
+      <span class="date">Date</span>
+    </div>
+    <div class="post-body">
+      <!-- Post content goes here -->
+    </div>
+    <div class="post-footer">
+      <span class="icon heart">♥</span>
+      <span class="icon comment">💬</span>
+    </div>
+  </div>
+  <!-- Additional posts... -->
+</div>
+
+</body>
+</html>
