@@ -46,7 +46,7 @@
   }
   
   .sidebar {
-    width: 250px;
+    width: 20%;
     background-color: #ffffff;
     padding: 20px;
     height: 100vh;
@@ -54,8 +54,18 @@
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   }
 
-  
-  
+  .sidebar.left {
+    /* width: 250px; /* Same as the left sidebar */
+    position: sticky;
+     /* Position it next to the extra right space */
+  }
+
+  .sidebar.right {
+    /*width: 250px; /* Same as the left sidebar */
+    position: sticky;
+     /* Position it next to the extra right space */
+  }
+
   .sidebar input[type="search"] {
     width: 100%;
     padding: 10px;
@@ -73,9 +83,18 @@
   }
   
   .content {
-    margin-left: 250px;
-    margin-right: 250px; /* New right margin, same as the right sidebar width */
+    flex: 1; /* Allows the content area to grow */
+    width: 50%;; /* Maximum width of the content area */
+    /* width: calc(100% - 750px); /* Subtract the total width of sidebars */
+   /* margin: auto; /* Adds margin to both sides */
     padding: 20px;
+    /* Rest of your styles... */
+  }
+
+  .body-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
   }
 
   
@@ -118,34 +137,94 @@
     /* Styling for the comment icon */
   }
   
-  .sidebar.right {
-    right: 0; /* Position the right sidebar on the right side */
-    left: auto; /* Override the left property from the original sidebar */
+  
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* Show the dropdown menu on hover */
+  .navbar-item:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Style for the header above the first post */
+  .post-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+
+  .friend-posts-title {
+    font-size: 1.2em; /* Adjust size as needed */
+    font-weight: bold; /* Makes the text bold */
+  }
+
+  .create-post-button {
+    padding: 5px 10px;
+    background-color: #007bff; /* Example button color - use your theme color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .create-post-button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+  }
+
+  /* Use media queries for responsiveness */
+@media (max-width: 768px) {
+  .sidebar.left, .sidebar.right {
+    display: none; /* Hides the sidebars when the screen width is 768px or less */
+  }
+
+  .content {
+    width: auto; /* Allows the content to take full width */
+    margin: 20px; /* Adds some margin on smaller screens */
+  }
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+/* Further adjustments for smaller screens */
+@media (max-width: 480px) {
+  .navbar-center-links, .navbar-item {
+    display: none; /* Optionally hide the navigation links on very small screens */
+  }
+
+  .content {
+    margin: 10px; /* Adds smaller margin for very small screens */
+  }
 }
 
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+/* Ensure the .body-container is not needed if using flex layout properly */
+.body-container {
+  display: flex;
+  justify-content: center; /* This will center the content */
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allows items to wrap when screen is too small */
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-/* Show the dropdown menu on hover */
-.navbar-item:hover .dropdown-content {
-  display: block;
+/* Additional styles for the header above the first post */
+.post-section-header {
+  /* Your existing styles */
+  width: 100%; /* Makes sure the header takes full width inside the content area */
 }
