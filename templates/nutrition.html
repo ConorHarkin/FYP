@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Name</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nutrition.css') }}">
+</head>
+<body>
+
+  <div class="navbar">
+    <div>WEBSITE NAME</div>
+    <div class="navbar-center-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('nutrition') }}">Nutrition</a>
+      <a href="{{ url_for('workout') }}">Workout</a>
+    </div>
+    <div class="navbar-item">
+      {% if current_user.is_authenticated %}
+      <a href="#profile">{{ current_user.username }}</a>
+      <div class="dropdown-content">
+        <a href="{{ url_for('logout') }}">Sign Out</a>
+      </div>
+      {% else %}
+      <a href="#profile">Profile</a>
+      <div class="dropdown-content">
+        <a href="{{ url_for('auth') }}">Sign In</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+<div class="body-container">
+
+  <div class="sidebar left">
+    
+  </div>
+
+        <div class="content">
+            <div class="food-diary">
+              <div class="date-box">
+                <button id="prev-date-btn">&lt;</button>
+                <span id="date-display">{{ date_today }}</span>
+                <button id="next-date-btn">&gt;</button>
+              </div>
+                
+              <div class="stats">
+                <div class="macros">
+                  <div>Calories: <span id="total-cals">0 kcals</span></div>
+                </div>
+                <div class="macros">
+                  <div>Carbs: <span id="total-carbs">0g</span></div>
+                </div>
+                <div class="macros">
+                  <div>Protein: <span id="total-protein">0g</span></div>
+                </div>  
+                <div class="macros">
+                  <div>Fat: <span id="total-fat">0g</span></div>
+                </div>   
+              </div>
+                <button type="button" id="save-food-data-btn">Save Food Diary</button>
+                <!-- Meals Sections -->
+                <div class="meal-section" id="breakfast">
+                  <h2>Breakfast</h2>
+                  <table class="food-table">
+                    <thead>
+                      <tr>
+                        <th>Enter food</th>
+                        <th>Amount</th>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Protein</th>
+                        <th>Fat</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for entry in food_entries if entry.meal == 'breakfast' and (entry.amount != 0 or entry.calories != 0 or entry.carbs != 0 or entry.protein != 0 or entry.fat != 0) %}
+                      <tr class="food-row">
+                        <td><input type="text" placeholder="Food Item" value="{{ entry.food }}"></td>
+                        <td><input type="number" placeholder="g or ml" class="amount" value="{{ entry.amount }}"></td>
+                        <td><input type="number" placeholder="Cals" class="calories" value="{{ entry.calories }}"></td>
+                        <td><input type="number" placeholder="Carbs (g)" class="carbs" value="{{ entry.carbs }}"></td>
+                        <td><input type="number" placeholder="Protein (g)" class="protein" value="{{ entry.protein }}"></td>
+                        <td><input type="number" placeholder="Fat (g)" class="fat" value="{{ entry.fat }}"></td>
+                      </tr> 
+                      {% endfor %}
+                      <!-- Additional rows can be added here -->
+                  </tbody>
+                    <tfoot>
+                      <tr class="total-row">
+                        <td>Total</td>
+                        <td></td> <!-- Leave blank for amount total or remove if not needed -->
+                        <td id="total-cals-breakfast">0</td>
+                        <td id="total-carbs-breakfast">0</td>
+                        <td id="total-protein-breakfast">0</td>
+                        <td id="total-fat-breakfast">0</td>
+                      </tr>
+                      <tr>
+                        <td colspan="6">
+                          <button type="button" class="add-food-btn">Add another food</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                    
+                  </table>
+                </div>
+                
+                
+                
+                <div class="meal-section" id="lunch">
+                  <h2>Lunch</h2>
+                  <table class="food-table">
+                    <thead>
+                      <tr>
+                        <th>Enter food</th>
+                        <th>Amount</th>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Protein</th>
+                        <th>Fat</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for entry in food_entries if entry.meal == 'lunch' and (entry.amount != 0 or entry.calories != 0 or entry.carbs != 0 or entry.protein != 0 or entry.fat != 0) %}
+                      <tr class="food-row">
+                        <td><input type="text" placeholder="Food Item" value="{{ entry.food }}"></td>
+                        <td><input type="number" placeholder="g or ml" class="amount" value="{{ entry.amount }}"></td>
+                        <td><input type="number" placeholder="Cals" class="calories" value="{{ entry.calories }}"></td>
+                        <td><input type="number" placeholder="Carbs (g)" class="carbs" value="{{ entry.carbs }}"></td>
+                        <td><input type="number" placeholder="Protein (g)" class="protein" value="{{ entry.protein }}"></td>
+                        <td><input type="number" placeholder="Fat (g)" class="fat" value="{{ entry.fat }}"></td>
+                      </tr> 
+                      {% endfor %}
+                      <!-- Additional rows can be added here -->
+                  </tbody>
+                    <tfoot>
+                      <tr class="total-row">
+                        <td>Total</td>
+                        <td></td> <!-- Leave blank for amount total or remove if not needed -->
+                        <td id="total-cals-lunch">0</td>
+                        <td id="total-carbs-lunch">0</td>
+                        <td id="total-protein-lunch">0</td>
+                        <td id="total-fat-lunch">0</td>
+                      </tr>
+                      <tr>
+                        <td colspan="6">
+                          <button type="button" class="add-food-btn">Add another food</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                    
+                  </table>
+                </div>
+
+                <div class="meal-section" id="dinner">
+                  <h2>Dinner</h2>
+                  <table class="food-table">
+                    <thead>
+                      <tr>
+                        <th>Enter food</th>
+                        <th>Amount</th>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Protein</th>
+                        <th>Fat</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for entry in food_entries if entry.meal == 'dinner' and (entry.amount != 0 or entry.calories != 0 or entry.carbs != 0 or entry.protein != 0 or entry.fat != 0) %}
+                      <tr class="food-row">
+                        <td><input type="text" placeholder="Food Item" value="{{ entry.food }}"></td>
+                        <td><input type="number" placeholder="g or ml" class="amount" value="{{ entry.amount }}"></td>
+                        <td><input type="number" placeholder="Cals" class="calories" value="{{ entry.calories }}"></td>
+                        <td><input type="number" placeholder="Carbs (g)" class="carbs" value="{{ entry.carbs }}"></td>
+                        <td><input type="number" placeholder="Protein (g)" class="protein" value="{{ entry.protein }}"></td>
+                        <td><input type="number" placeholder="Fat (g)" class="fat" value="{{ entry.fat }}"></td>
+                      </tr> 
+                      {% endfor %}
+                      <!-- Additional rows can be added here -->
+                  </tbody>
+                    <tfoot>
+                      <tr class="total-row">
+                        <td>Total</td>
+                        <td></td> <!-- Leave blank for amount total or remove if not needed -->
+                        <td id="total-cals-dinner">0</td>
+                        <td id="total-carbs-dinner">0</td>
+                        <td id="total-protein-dinner">0</td>
+                        <td id="total-fat-dinner">0</td>
+                      </tr>
+                      <tr>
+                        <td colspan="6">
+                          <button type="button" class="add-food-btn">Add another food</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                    
+                  </table>
+                </div>
+
+                <div class="meal-section" id="snacks">
+                  <h2>Snacks</h2>
+                  <table class="food-table">
+                    <thead>
+                      <tr>
+                        <th>Enter food</th>
+                        <th>Amount</th>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Protein</th>
+                        <th>Fat</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for entry in food_entries if entry.meal == 'snacks' and (entry.amount != 0 or entry.calories != 0 or entry.carbs != 0 or entry.protein != 0 or entry.fat != 0) %}
+                      <tr class="food-row">
+                        <td><input type="text" placeholder="Food Item" value="{{ entry.food }}"></td>
+                        <td><input type="number" placeholder="g or ml" class="amount" value="{{ entry.amount }}"></td>
+                        <td><input type="number" placeholder="Cals" class="calories" value="{{ entry.calories }}"></td>
+                        <td><input type="number" placeholder="Carbs (g)" class="carbs" value="{{ entry.carbs }}"></td>
+                        <td><input type="number" placeholder="Protein (g)" class="protein" value="{{ entry.protein }}"></td>
+                        <td><input type="number" placeholder="Fat (g)" class="fat" value="{{ entry.fat }}"></td>
+                      </tr> 
+                      {% endfor %}
+                      <!-- Additional rows can be added here -->
+                  </tbody>
+                    <tfoot>
+                      <tr class="total-row">
+                        <td>Total</td>
+                        <td></td> <!-- Leave blank for amount total or remove if not needed -->
+                        <td id="total-cals-snacks">0</td>
+                        <td id="total-carbs-snacks">0</td>
+                        <td id="total-protein-snacks">0</td>
+                        <td id="total-fat-snacks">0</td>
+                      </tr>
+                      <tr>
+                        <td colspan="6">
+                          <button type="button" class="add-food-btn">Add another food</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                
+              </div>
+            
+          
+          
+          
+        </div>
+
+
+            
+            <div class="sidebar right"></div>
+
+  </div>
+  
+</div>
+
+<script src="{{ url_for('static', filename='js/nutrition/nutrition.js') }}"></script>
+
+</body>
+</html>

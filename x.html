@@ -1,0 +1,56 @@
+<div class="content">
+    
+    <button id="addExerciseBlockBtn">Add Another Exercise</button>
+    <h1>Log Workout for {{ date_today }}</h1>
+    <div class="exercise-block">
+      <button class="chooseExerciseBtn">Choose an Exercise</button>
+      <div class="exercise-header"></div>
+      <div class="exercise-sets-container">
+        <div class="exercise-row">
+          <div class="exercise-set">1</div>
+          <input type="text" class="exercise-weight" placeholder="Weight">
+          <input type="text" class="exercise-reps" placeholder="Reps">
+        </div>
+      </div>
+      <button class="addSetBtn">Add Set</button>
+      <button class="deleteSetBtn">Delete Set</button>
+      
+    </div>
+    
+  </div>
+
+
+    <!-- Modal for exercise selection -->
+    <div id="exerciseModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Select an Exercise</h2>
+        <div class="bodypart-container">
+          <button class="accordion">Shoulders</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Back</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Chest</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Bicep</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Tricep</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Forearm</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Glutes</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Hamstrings</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Calves</button>
+          <div class="panel" style="display:none;"></div>
+          <button class="accordion">Core</button>
+          <div class="panel" style="display:none;"></div>
+          <!-- ...other body part buttons -->
+          <div class="panel">
+            <!-- Exercise options will be dynamically inserted here -->
+          </div>
+          <!-- Repeat for other body parts -->
+        </div>
+      </div>
+    </div>

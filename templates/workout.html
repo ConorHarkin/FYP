@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Name</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/workout.css') }}">
+</head>
+<body>
+
+  <div class="navbar">
+    <div>WEBSITE NAME</div>
+    <div class="navbar-center-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('nutrition') }}">Nutrition</a>
+      <a href="{{ url_for('workout') }}">Workout</a>
+    </div>
+    <div class="navbar-item">
+      {% if current_user.is_authenticated %}
+      <a href="#profile">{{ current_user.username }}</a>
+      <div class="dropdown-content">
+        <a href="{{ url_for('logout') }}">Sign Out</a>
+      </div>
+      {% else %}
+      <a href="#profile">Profile</a>
+      <div class="dropdown-content">
+        <a href="{{ url_for('auth') }}">Sign In</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+<div class="body-container">
+
+  <div class="sidebar left">
+    
+  </div>
+
+        <div class="content">
+          
+          <button id="addExerciseBlockBtn">Add Another Exercise</button>
+          <button id="saveWorkoutBtn">Save</button>
+          <h1>Log Workout for {{ date_today }}</h1>
+          <div class="date-navigation">
+            <button id="prevDayBtn">&lt;</button>
+            <span id="displayDate">{{ date_today }}</span>
+            <button id="nextDayBtn">&gt;</button>
+          </div>
+          
+          
+          
+        </div>
+
+
+            <!-- Modal for exercise selection -->
+            <div id="exerciseModal" class="modal">
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Select an Exercise</h2>
+                <div class="bodypart-container">
+                  <button class="accordion">Shoulders</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Back</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Chest</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Bicep</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Tricep</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Forearm</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Glutes</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Hamstrings</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Calves</button>
+                  <div class="panel" style="display:none;"></div>
+                  <button class="accordion">Core</button>
+                  <div class="panel" style="display:none;"></div>
+                  <!-- ...other body part buttons -->
+                  <div class="panel">
+                    <!-- Exercise options will be dynamically inserted here -->
+                  </div>
+                  <!-- Repeat for other body parts -->
+                </div>
+              </div>
+            </div>
+            <div class="sidebar right"></div>
+
+  </div>
+  
+</div>
+
+<script src="{{ url_for('static', filename='js/workout/script.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,474 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #e5e5e5;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  /* This wrapper will help to center the middle links */
+  .navbar-center-links {
+    margin: 0 30px; /* Adjust the value as needed */
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar a:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .navbar-item {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .sidebar {
+    width: 30%;
+    background-color: #e9e9e9;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+     
+  }
+  
+  .sidebar.left {
+    /* width: 250px; /* Same as the left sidebar */
+    position: sticky;
+     /* Position it next to the extra right space */
+  }
+  
+  .sidebar.right {
+    /*width: 250px; /* Same as the left sidebar */
+    position: sticky;
+     /* Position it next to the extra right space */
+  }
+  
+  .sidebar input[type="search"] {
+    /* padding-left: 30%; */
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .friend-list {
+    /* padding-left: 30%; */
+    margin-bottom: 20px;
+  }
+  
+  .friend {
+    /* padding-left: 30%; */
+    margin-bottom: 10px;
+  }
+  
+  .content {
+    flex: 1; /* Allows the content area to grow */
+    width: 50%;; /* Maximum width of the content area */
+    /* width: calc(100% - 750px); /* Subtract the total width of sidebars */
+   /* margin: auto; /* Adds margin to both sides */
+    padding: 20px;
+    /* Rest of your styles... */
+  }
+  
+  .body-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #e9e9e9;
+  }
+  
+  
+  .post {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .post-body {
+    background-color: #e9e9e9;
+    height: 150px; /* Placeholder for content height */
+    border-radius: 5px;
+  }
+  
+  .post-footer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .heart {
+    /* Styling for the heart icon */
+  }
+  
+  .comment {
+    /* Styling for the comment icon */
+  }
+  
+  
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .navbar-item:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Style for the header above the first post */
+  .post-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .friend-posts-title {
+    font-size: 1.2em; /* Adjust size as needed */
+    font-weight: bold; /* Makes the text bold */
+  }
+  
+  .create-post-button {
+    padding: 5px 10px;
+    background-color: #007bff; /* Example button color - use your theme color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-post-button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+  }
+  
+  /* Use media queries for responsiveness */
+  @media (max-width: 768px) {
+  .sidebar.left, .sidebar.right {
+    display: none; /* Hides the sidebars when the screen width is 768px or less */
+  }
+  
+  .content {
+    width: auto; /* Allows the content to take full width */
+    margin: 20px; /* Adds some margin on smaller screens */
+  }
+  }
+  
+  /* Further adjustments for smaller screens */
+  @media (max-width: 480px) {
+  .navbar-center-links, .navbar-item {
+    display: none; /* Optionally hide the navigation links on very small screens */
+  }
+  
+  .content {
+    margin: 10px; /* Adds smaller margin for very small screens */
+  }
+  }
+  
+  /* Ensure the .body-container is not needed if using flex layout properly */
+  .body-container {
+  display: flex;
+  justify-content: center; /* This will center the content */
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allows items to wrap when screen is too small */
+  }
+  
+  /* Additional styles for the header above the first post */
+  .post-section-header {
+  /* Your existing styles */
+  width: 100%; /* Makes sure the header takes full width inside the content area */
+  }
+  
+  .chat-icon {
+    cursor: pointer;
+    /* other styles for positioning and appearance */
+  }
+  
+  .chat-window {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    /* other styles for appearance */
+  }
+  
+  .chat-header {
+    /* styles for chat header */
+  }
+  
+  .chat-messages {
+    /* styles for chat messages area */
+  }
+  
+  .chat-input {
+    /* styles for input area */
+  }
+  
+  .close-chat {
+    cursor: pointer;
+    /* styles for close button */
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  .workout-log {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .exercise-block {
+    background: white;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .exercise-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .exercise-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .exercise-set,
+  .exercise-weight,
+  .exercise-reps {
+    flex-basis: 30%;
+    text-align: center;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  .food-diary {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .date-box {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .stats .calories, .stats .macros div {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .meal-section {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .meal-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .macro-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    flex-basis: 48%; /* Adjust the width to fit side by side with some spacing */
+  }
+
+  .macro-item {
+    margin-bottom: 10px;
+  }
+
+  .macro-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #f5f5f5; /* Assuming you want the grey background */
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .meal-section {
+    margin-bottom: 20px;
+  }
+  
+  .meal-section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .meal-inputs {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .meal-inputs input[type="text"],
+  .meal-inputs input[type="number"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  /* Specific width adjustments */
+  .meal-inputs .food-input {
+    flex: 2; /* food input is larger */
+  }
+  
+  .meal-inputs .amount-input,
+  .meal-inputs .cal-input,
+  .meal-inputs .protein-input,
+  .meal-inputs .fat-input {
+    flex: 1; /* amount, cals, protein, and fat inputs are smaller */
+  }
+  
+  .food-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .food-table th, .food-table td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .food-table th {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .food-table td {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .food-table input[type="text"],
+  .food-table input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: -1px; /* To reduce the space inside the table cell */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  
+  
+  
+  

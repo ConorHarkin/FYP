@@ -8,81 +8,146 @@
 </head>
 <body>
 
-<div class="navbar">
-  <div>WEBSITE NAME</div>
-  <div class="navbar-center-links">
-    <a href="#home">Home</a>
-    <a href="#nutrition">Nutrition</a>
-    <a href="#workout">Workout</a>
-  </div>
-  <div class="navbar-item">
-    <a href="#profile">Profile</a>
-    <div class="dropdown-content">
-      <a href="/signin">Sign in</a>
-      <a href="/signup">Sign up</a>
-    </div>
-  </div>
-</div>
-
-<div class="body-container">
-
+  <script>
+    function openChat(username) {
+      // Set the username in the chat window header
+      document.getElementById('chat-username').textContent = username;
+      
+      // Show the chat window
+      document.getElementById('chat-window').style.display = 'block';
+    }
   
+    function closeChat() {
+      document.getElementById('chat-window').style.display = 'none';
+    }
+  </script>
 
-  <div class="sidebar left">
-    <input type="search" placeholder="Find Friends">
-    <div class="friend-list">
-      <div class="friend">Username</div>
-      <div class="friend">Username</div>
+  <div class="navbar">
+    <div>WEBSITE NAME</div>
+    <div class="navbar-center-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('nutrition') }}">Nutrition</a>
+      <a href="{{ url_for('workout') }}">Workout</a>
     </div>
+    <div class="navbar-item">
+      {% if current_user.is_authenticated %}
+        <a href="#">{{ current_user.username }}</a>
+        <div class="dropdown-content">
+          <a href="{{ url_for('profile') }}">Profile</a>
+          <a href="{{ url_for('logout') }}">Sign Out</a>
+        </div>
+      {% else %}
+        <a href="{{ url_for('auth') }}">Sign In</a>
+      </div>
+    {% endif %}
+    </div>
+    
   </div>
+
+  <div class="body-container">
+
+    <div class="sidebar left">
+      <form action="{{ url_for('search_users') }}" method="post">
+        <input type="search" name="search" placeholder="Find Friends" required>
+        <button type="submit">Search</button>
+      </form>
+      <h3>My Friends</h3>
+      <div class="friend-list">
+        {% for friend in friends %}
+        <div class="friend">
+          {{ friend.username }}
+          <!-- You can add a link to unfriend or view the friend's profile here -->
+          <!--<img src="icons8-message-50.png" alt="Message" class="chat-icon" onclick="openChat('{{ friend.username }}')">-->
+        </div>
+        {% else %}
+        <p>No friends to show.</p>
+        {% endfor %}
+      </div>
+
+      
+      
+      <div id="search-results">
+        {% if search_results %}
+          {% for user in search_results %}
+          <div class="friend">
+            {{ user.username }}
+            {% if user.username in friend_usernames %}
+              <span>Added</span>
+            {% else %}
+              <form action="{{ url_for('add_friend', user_id=user.id) }}" method="post">
+                <button type="submit">Add Friend</button>
+              </form>
+            {% endif %}
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      
+    </div>
+
 
  
   
 
 <div class="content">
   <div class="post-section-header">
-    <span class="friend-posts-title">Friend Posts</span>
-    <span class="create-post-link">
-      <a href="/create_post" class="create-post-button">Create a post ✏️</a>
-    </span>
+      <span class="friend-posts-title">Friend Posts</span>
+      <button id="myBtn" class="create-post-button">Create a post ✏️</button>
   </div>
 
-  <div class="post">
-    <div class="post-header">
-      <span class="username">Username</span>
-      <span class="date">Date</span>
-    </div>
+  <!-- Display message if no friends -->
+  {% if not friends %}
+      <p>You have no friends, add some friends to see what they post.</p>
+  {% endif %}
 
-    <div class="post-body">
-      <!-- Post content goes here -->
-    </div>
-    <div class="post-footer">
-      <span class="icon heart">♥</span>
-      <span class="icon comment">💬</span>
+  <!-- Display friend posts -->
+  {% for post in friend_posts %}
+      <div class="post">
+          <div class="post-header">
+              <span class="username">{{ post.user.username }}</span>
+              <span class="date">{{ post.created_at }}</span>
+          </div>
+          <div class="post-body">
+              {{ post.content }}
+          </div>
+          <div class="post-footer">
+              
+            <button class="icon comment" onclick="openComments({{ post.id }})">💬</button>
+
+
+          </div>
+      </div>
+  {% else %}
+      <p>No posts to show. Start by creating a post.</p>
+  {% endfor %}
+
+  <div id="postModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <textarea id="postContent" placeholder="What's happening?"></textarea>
+      <button id="postSubmit">Post</button>
     </div>
   </div>
 
-  <!-- Additional posts... -->
-  <div class="post">
-    <div class="post-header">
-      <span class="username">Username</span>
-      <span class="date">Date</span>
-    </div>
-    <div class="post-body">
-      <!-- Post content goes here -->
-    </div>
-    <div class="post-footer">
-      <span class="icon heart">♥</span>
-      <span class="icon comment">💬</span>
+  <div id="commentsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('commentsModal')">&times;</span>
+      <div id="commentsContainer">
+        <!-- Comments will be loaded here -->
+      </div>
+      <textarea id="newCommentContent" placeholder="Add a comment..."></textarea>
+      <button id="submitCommentButton" onclick="submitComment()">Comment</button>
     </div>
   </div>
-
   
   
 </div>
    <div class="sidebar right"></div>
 </div>
   
-
+<script src="{{ url_for('static', filename='js/home/home.js') }}"></script>
 </body>
+
+
+  
 </html>

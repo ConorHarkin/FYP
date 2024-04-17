@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to A Fitness Website</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Login/auth.css') }}">
+</head>
+<body>
+
+<!-- Flash messages here -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<section class="forms-section">
+  <h1 class="section-title">Welcome to A Fitness Website</h1>
+  <div class="forms">
+    <div class="form-wrapper is-active">
+      <button type="button" class="switcher switcher-login">
+        Login
+        <span class="underline"></span>
+      </button>
+      <form class="form form-login" action="{{ url_for('signin') }}" method="POST">
+        {{ sign_in_form.csrf_token }}
+        <fieldset>
+          <legend>Please, enter your email and password for login.</legend>
+          <div class="input-block">
+            {{ sign_in_form.email.label(for='login-email') }}
+            {{ sign_in_form.email(id='login-email', class_='form-control') }}
+          </div>
+          <div class="input-block">
+            {{ sign_in_form.password.label(for='login-password') }}
+            {{ sign_in_form.password(id='login-password', class_='form-control') }}
+          </div>
+        </fieldset>
+        <button type="submit" name="btn-login" class="btn-login">Login</button>
+      </form>
+    </div>
+    <div class="form-wrapper">
+      <button type="button" class="switcher switcher-signup">
+        Sign Up
+        <span class="underline"></span>
+      </button>
+      <form class="form form-signup" action="{{ url_for('signup') }}" method="POST">
+        {{ sign_up_form.csrf_token }}
+        <fieldset>
+          <legend>Please, enter your email, password and password confirmation for sign up.</legend>
+          <div class="input-block">
+            {{ sign_up_form.username.label(for='signup-username') }}
+            {{ sign_up_form.username(id='signup-username', class_='form-control') }}
+            {% if sign_up_form.username.errors %}
+              <div class="error">{{ sign_up_form.username.errors[0] }}</div>
+            {% endif %}
+          </div>
+          <div class="input-block">
+            {{ sign_up_form.email.label(for='signup-email') }}
+            <input type="email" id="signup-email" name="email" class="form-control" required placeholder="Enter your email">
+            {% if sign_up_form.email.errors %}
+              <div class="error">{{ sign_up_form.email.errors[0] }}</div>
+            {% endif %}
+          </div>
+          <div class="input-block">
+            {{ sign_up_form.password.label(for='signup-password') }}
+            {{ sign_up_form.password(id='signup-password', class_='form-control') }}
+            {% if sign_up_form.password.errors %}
+              <div class="error">{{ sign_up_form.password.errors[0] }}</div>
+            {% endif %}
+          </div>
+          <div class="input-block">
+            {{ sign_up_form.confirm.label(for='signup-password-confirm') }}
+            {{ sign_up_form.confirm(id='signup-password-confirm', class_='form-control') }}
+            {% if sign_up_form.confirm.errors %}
+              <div class="error">{{ sign_up_form.confirm.errors[0] }}</div>
+            {% endif %}
+          </div>
+        </fieldset>
+        <button type="submit" name="btn-signup" class="btn-signup">Continue</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="{{ url_for('static', filename='js/Login/script.js') }}"></script>
+
+</body>
+</html>

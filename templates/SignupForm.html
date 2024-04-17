@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up and Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login/auth.css') }}">
+</head>
+<body>
+    <section class="forms-section">
+        <h1 class="section-title">Welcome to Our Service</h1>
+        
+        <!-- Section to display flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="forms">
+            <div class="form-wrapper">
+                <!-- Sign-up Form -->
+                <form class="form form-signup" action="{{ url_for('signup') }}" method="POST">
+                    {{ sign_up_form.csrf_token }}
+
+                    <div class="input-block">
+                        {{ sign_up_form.username.label(for='signup-username') }}
+                        {{ sign_up_form.username(id='signup-username', class_='form-control' + (' is-invalid' if sign_up_form.username.errors else '')) }}
+                        {% if sign_up_form.username.errors %}
+                            <div class="error">{{ sign_up_form.username.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="input-block">
+                        {{ sign_up_form.email.label(for='signup-email') }}
+                        {{ sign_up_form.email(id='signup-email', class_='form-control' + (' is-invalid' if sign_up_form.email.errors else '')) }}
+                        {% if sign_up_form.email.errors %}
+                            <div class="error">{{ sign_up_form.email.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="input-block">
+                        {{ sign_up_form.password.label(for='signup-password') }}
+                        {{ sign_up_form.password(id='signup-password', class_='form-control' + (' is-invalid' if sign_up_form.password.errors else '')) }}
+                        {% if sign_up_form.password.errors %}
+                            <div class="error">{{ sign_up_form.password.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="input-block">
+                        {{ sign_up_form.confirm.label(for='signup-password-confirm') }}
+                        {{ sign_up_form.confirm(id='signup-password-confirm', class_='form-control' + (' is-invalid' if sign_up_form.confirm.errors else '')) }}
+                        {% if sign_up_form.confirm.errors %}
+                            <div class="error">{{ sign_up_form.confirm.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn-signup">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
