@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Website Name</title>
+<title>Easy Fitness</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/workout.css') }}">
 </head>
 <body>
 
   <div class="navbar">
-    <div>WEBSITE NAME</div>
+    <div>Easy Fitness</div>
     <div class="navbar-center-links">
       <a href="{{ url_for('home') }}">Home</a>
       <a href="{{ url_for('nutrition') }}">Nutrition</a>
@@ -34,18 +34,31 @@
 
   <div class="sidebar left">
     
+
+    <!--
+    <div class="date-navigation">
+      <button id="prevDayBtn">&lt;</button>
+      <span id="displayDate">{{ date_today }}</span>
+      <button id="nextDayBtn">&gt;</button>
+    </div>
+    -->
+
+
+    
   </div>
 
         <div class="content">
           
           <button id="addExerciseBlockBtn">Add Another Exercise</button>
           <button id="saveWorkoutBtn">Save</button>
-          <h1>Log Workout for {{ date_today }}</h1>
+          
+          
           <div class="date-navigation">
             <button id="prevDayBtn">&lt;</button>
-            <span id="displayDate">{{ date_today }}</span>
+            <span>Workout diary for: <span id="displayDate">{{ date_today }}</span></span>
             <button id="nextDayBtn">&gt;</button>
           </div>
+            
           
           
           
@@ -76,8 +89,7 @@
                   <div class="panel" style="display:none;"></div>
                   <button class="accordion">Calves</button>
                   <div class="panel" style="display:none;"></div>
-                  <button class="accordion">Core</button>
-                  <div class="panel" style="display:none;"></div>
+                  
                   <!-- ...other body part buttons -->
                   <div class="panel">
                     <!-- Exercise options will be dynamically inserted here -->

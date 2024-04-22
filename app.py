@@ -109,45 +109,63 @@ def home():
 def signin():
     form = SigninForm(request.form)
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and check_password_hash(user.password_hash, form.password.data):
+        # Retrieve the input from the form
+        login_input = form.email.data  # Assuming 'email' field is used for both email and username inputs
+        password_input = form.password.data
+
+        # Check database for user by email or username
+        user = User.query.filter((User.email == login_input) | (User.username == login_input)).first()
+        
+        if user and check_password_hash(user.password_hash, password_input):
             login_user(user)
+            flash('You have been logged in!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('Invalid login attempt.', 'error')
+            flash('Invalid login credentials.', 'error')
+
     return render_template('auth.html', sign_in_form=form)
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    form = SignupForm()  # Initialize the form
+    sign_in_form = SigninForm()  # Initialize sign-in form
+    sign_up_form = SignupForm()  # Initialize sign-up form
 
-    if request.method == 'POST':
-            if form.validate_on_submit():
-                # Extract form data
-                hashed_password = generate_password_hash(form.password.data)
-                new_user = User(username=form.username.data, email=form.email.data, password_hash=hashed_password)
+    if request.method == 'POST' and sign_up_form.validate_on_submit():
+        # Check if username or email already exists in the database
+        existing_user = User.query.filter((User.username == sign_up_form.username.data) | (User.email == sign_up_form.email.data)).first()
+        if existing_user:
+            if existing_user.username == sign_up_form.username.data:
+                flash('This username is already taken. Please choose another one.', 'error')
+            if existing_user.email == sign_up_form.email.data:
+                flash('This email is already registered. Please use another email or login.', 'error')
+            return render_template('auth.html', sign_in_form=sign_in_form, sign_up_form=sign_up_form)
 
-                # Add the new user to the database
-                db.session.add(new_user)
-                try:
-                    db.session.commit()  # Attempt to commit changes to the database
-                    login_user(new_user)  # Log in the new user
-                    flash('Account created successfully! You are now logged in.', 'success')
-                    return redirect(url_for('home'))  # Redirect to the home page
-                except Exception as e:
-                    db.session.rollback()  # Rollback in case of error
-                    flash('An error occurred: ' + str(e), 'error')  # Flash an error message
-                    app.logger.error('Error on sign up: %s', e)  # Log the error
+        # If username and email are unique, proceed with creating a new user
+        hashed_password = generate_password_hash(sign_up_form.password.data)
+        new_user = User(username=sign_up_form.username.data, email=sign_up_form.email.data, password_hash=hashed_password)
 
-            else:
-                for field, errors in form.errors.items():
-                    for error in errors:
-                        flash(f"Error in the {getattr(form, field).label.text} field - {error}", 'error')
-                return render_template('auth.html', sign_up_form=form)
-    return render_template('auth.html', sign_up_form=SignupForm())
+        # Add the new user to the database
+        db.session.add(new_user)
+        try:
+            db.session.commit()  # Attempt to commit changes to the database
+            login_user(new_user)  # Log in the new user
+            flash('Account created successfully! You are now logged in.', 'success')
+            return redirect(url_for('home'))  # Redirect to the home page
+        except Exception as e:
+            db.session.rollback()  # Rollback in case of error
+            flash('An error occurred: ' + str(e), 'error')  # Flash an error message
+            app.logger.error('Error on sign up: %s', e)  # Log the error
 
-    # Whether it's a GET request or the form didn't validate on POST
-    return render_template('auth.html', sign_up_form=form)  # Pass the form to the template
+    else:
+        # If it's a GET request or the form didn't validate on POST, show form errors
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Error in the {getattr(sign_up_form, field).label.text} field - {error}", 'error')
+
+    return render_template('auth.html', sign_in_form=sign_in_form, sign_up_form=sign_up_form)  # Pass both forms to the template
+
+
 
 @app.route('/logout')
 def logout():

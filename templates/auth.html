@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to A Fitness Website</title>
+  <title>Welcome to Easy Fitness</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/Login/auth.css') }}">
 </head>
 <body>
 
-<!-- Flash messages here -->
+<!-- Flash messages here 
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
@@ -16,9 +16,9 @@
     {% endfor %}
   {% endif %}
 {% endwith %}
-
+-->
 <section class="forms-section">
-  <h1 class="section-title">Welcome to A Fitness Website</h1>
+  <h1 class="section-title">Welcome to Easy Fitness</h1>
   <div class="forms">
     <div class="form-wrapper is-active">
       <button type="button" class="switcher switcher-login">
@@ -31,8 +31,8 @@
           <legend>Please, enter your email and password for login.</legend>
           <div class="input-block">
             {{ sign_in_form.email.label(for='login-email') }}
-            {{ sign_in_form.email(id='login-email', class_='form-control') }}
-          </div>
+            {{ sign_in_form.email(id='login-email', class_='form-control', placeholder='Username or Email') }}
+        </div>
           <div class="input-block">
             {{ sign_in_form.password.label(for='login-password') }}
             {{ sign_in_form.password(id='login-password', class_='form-control') }}

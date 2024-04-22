@@ -3,8 +3,9 @@ from wtforms import StringField, PasswordField, validators
 from wtforms.validators import InputRequired
 
 class SigninForm(FlaskForm):
-    email = StringField('Email', validators=[InputRequired()])
+    email = StringField('Username or Email', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
+
 
 class SignupForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=4, max=25)])

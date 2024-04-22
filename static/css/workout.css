@@ -398,6 +398,38 @@ margin-left: 10px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #0056b3;
+.panel button {
+  margin: 5px;
+  /* Adjust the margin value as needed */
+}
+
+.panel button {
+  
+  margin-right: 5px;
+  /* This will add space to the left and right of each button */
+}
+
+.food-diary {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  width: 50%;
+}
+
+.date-navigation {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
